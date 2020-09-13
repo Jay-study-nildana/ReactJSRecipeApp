@@ -74,7 +74,7 @@ steps:
 - task: CopyFiles@2
   inputs:
     Contents: 'build/**' # Pull the build directory (React)
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    TargetFolder: 'copytarget'
 
 # generating an artifact folder  
 # artifacts are useful if you want to do something else with the output folder
@@ -83,7 +83,7 @@ steps:
 
 - task: PublishBuildArtifacts@1
   inputs: 
-    pathtoPublish: $(Build.ArtifactStagingDirectory) # dist or build files
+    pathtoPublish: copytarget # dist or build files
     ArtifactName: 'www' # output artifact named www
 
 # deploy to a web app 
@@ -101,7 +101,7 @@ steps:
   inputs:
     azureSubscription: 'ReactJSRecipeAppConnection' # this is my service connection configured in devops organization
     appName: 'reactjsrecipeappwebapp1' # this is the web app where i want to deploy to
-    package: '$(Build.ArtifactStagingDirectory)/*.*' # this is the folder where react is dumping all the output files
+    package: 'copytarget' # this is the folder where react is dumping all the output files
     customWebConfig: '-Handler iisnode -NodeStartFile server.js -appType node' # this creates a node web config  in the web app
 
 
