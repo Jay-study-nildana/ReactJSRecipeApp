@@ -1,3 +1,5 @@
+[![Build Status](https://dev.azure.com/tryingitout1/ReactJSRecipeApp/_apis/build/status/Jay-study-nildana.ReactJSRecipeApp?branchName=master)](https://dev.azure.com/tryingitout1/ReactJSRecipeApp/_build/latest?definitionId=2&branchName=master)
+
 # React JS Recipe App
 
 This app does not do anything special as of now. It's a simple react app that shows a recipe.
@@ -5,6 +7,10 @@ This app does not do anything special as of now. It's a simple react app that sh
 It uses the create react app command and uses the facebook recommended project structure
 
 Further, it shows a quick and easy YAML configuration for deploying with Azure Pipelines to an Azure Web App
+
+# Deployment Web App
+
+Currently deployed at this [Azure Web Site](https://reactjsrecipeapp4.azurewebsites.net/) via CICD Azure DevOps Pipelines.
 
 # Deafault React Read Me
 
