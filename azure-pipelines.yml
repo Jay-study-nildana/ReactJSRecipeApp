@@ -72,9 +72,24 @@ steps:
 # you can copy to pretty much any folder you want to. 
 
 - task: CopyFiles@2
+  displayName: 'Copy files'
   inputs:
-    Contents: 'build/**' # Pull the build directory (React)
-    TargetFolder: 'copytarget'
+    sourceFolder: '$(directory)/build' 
+    Contents: '**/*'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    cleanTargetFolder: true
+
+# to properly deploy, looks like i really need to have a zip folder
+# I think it is how devops deployment is done. from a zipped folder.
+
+- task: ArchiveFiles@2
+  displayName: 'Archive files'
+  inputs:
+    rootFolderOrFile: '$(Build.ArtifactStagingDirectory)'
+    includeRootFolder: false
+    archiveType: zip
+    archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+    replaceExistingArchive: true    
 
 # generating an artifact folder  
 # artifacts are useful if you want to do something else with the output folder
@@ -82,8 +97,9 @@ steps:
 # i believe the deployment will still happen if the copy file and publish artifact step is not there
 
 - task: PublishBuildArtifacts@1
+  displayName: 'Publish Build Artifacts'
   inputs: 
-    pathtoPublish: copytarget # dist or build files
+    pathtoPublish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
     ArtifactName: 'www' # output artifact named www
 
 # deploy to a web app 
@@ -98,18 +114,10 @@ steps:
 # I am currently targeting this here - https://reactjsrecipeappwebapp1.azurewebsites.net
 
 - task: AzureWebApp@1
+  displayName: 'Deploy to App Service'
   inputs:
-    azureSubscription: 'ReactJSRecipeAppConnection' # this is my service connection configured in devops organization
-    appName: 'reactjsrecipeappwebapp1' # this is the web app where i want to deploy to
-    package: 'copytarget/**/*.zip' # this is the folder where react is dumping all the output files
-    customWebConfig: '-Handler iisnode -NodeStartFile server.js -appType node' # this creates a node web config  in the web app
-
-
-# steps:
-
-# - task: AzureWebApp@1
-#   displayName: Azure Web App Deploy
-#   inputs:
-#     azureSubscription: $(azureSubscription)
-#     appName: samplewebapp
-#     package: $(System.DefaultWorkingDirectory)/**/*.zip
+    azureSubscription: 'ReactJSRecipeAppConnection'
+    appName: 'reactjsrecipeappwebapp1'
+    appType: 'webApp'
+    package: '$(System.ArtifactsDirectory)/$(Build.BuildId).zip'
+    customWebConfig: '-Handler iisnode -NodeStartFile server.js -appType node' # this creates a node web config  in the web app    
