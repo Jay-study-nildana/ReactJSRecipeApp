@@ -5,7 +5,7 @@ function Menu({ recipes }) {
   return (
     <article>
       <header>
-        <h1>Delicious Recipes BROOOOOOOOOOOO ZZZZZZZZZZZ</h1>
+        <h1>Delicious Recipes because I am Batman</h1>
       </header>
       <div className="recipes">
         {recipes.map((recipe, i) => (
