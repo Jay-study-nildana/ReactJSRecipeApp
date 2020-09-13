@@ -1,0 +1,4 @@
+{
+    "deployToAzure.UseAzurePipelinesForGithub": true,
+    "deployToAzure.UseGithubForCreatingNewRepository": false
+}
