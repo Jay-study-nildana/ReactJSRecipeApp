@@ -22,16 +22,17 @@ steps:
 
 - task: PublishBuildArtifacts@1
   inputs: 
-    pathtoPublish: $(System.DefaultWorkingDirectory) # dist or build files
+    pathtoPublish: $(Build.ArtifactStagingDirectory) # dist or build files
     ArtifactName: 'www' # output artifact named www
 
+# Default value: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+    rootFolderOrFile: '$(Build.ArtifactStagingDirectory)'
     includeRootFolder: false
 
 - task: AzureWebApp@1
   inputs:
     azureSubscription: 'ReactJSRecipeAppConnection'
     appName: 'ReactJSRecipeApp4'
-    package: '$(System.DefaultWorkingDirectory)'   
+    package: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'   
