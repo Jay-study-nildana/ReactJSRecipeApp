@@ -20,6 +20,10 @@ pool:
 # by way of using a strategy matrix.
 # right now, i am just using one version so strategy is not required.
 
+# Set variables
+variables:
+  directory: ReactJSRecipeApp
+
 
 steps:
 - task: NodeTool@0
