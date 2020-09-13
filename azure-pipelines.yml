@@ -27,11 +27,11 @@ steps:
 
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+    rootFolderOrFile: '$(Build.ArtifactStagingDirectory)'
     includeRootFolder: false
 
 - task: AzureWebApp@1
   inputs:
     azureSubscription: 'ReactJSRecipeAppConnection'
     appName: 'ReactJSRecipeApp4'
-    package: '$(System.DefaultWorkingDirectory)'   
+    package: '$(Build.ArtifactStagingDirectory)'   
