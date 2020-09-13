@@ -28,7 +28,7 @@ variables:
 steps:
 - task: NodeTool@0
   inputs:
-    versionSpec: '10.x' # specify a specific version of node js here. depends on the react requirement i guess
+    versionSpec: '12.13.0' # specify a specific version of node js here. depends on the react requirement i guess
   displayName: 'Install Node.js'
 
 # npm install will take care of development dependencies included in the project 
