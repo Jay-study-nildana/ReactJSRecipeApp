@@ -101,7 +101,7 @@ steps:
   inputs:
     azureSubscription: 'ReactJSRecipeAppConnection' # this is my service connection configured in devops organization
     appName: 'reactjsrecipeappwebapp1' # this is the web app where i want to deploy to
-    package: 'copytarget/build' # this is the folder where react is dumping all the output files
+    package: 'copytarget/build/' # this is the folder where react is dumping all the output files
     customWebConfig: '-Handler iisnode -NodeStartFile server.js -appType node' # this creates a node web config  in the web app
 
 
