@@ -57,11 +57,18 @@ steps:
 
 # packaging of the web app is done either with webpack or the framework's preferred way of building
 # in this react js project, that would be npm run build.
+# install all the neccessary things like packages
 
-- script: |
+- script: 
     npm install
+  displayName: 'npm install'
+
+# prepare the depoyment folder
+
+- script:
     npm run build
-  displayName: 'npm install and build'
+  displayName: 'npm build'  
+  workingDirectory: $(directory)
 
 # at this point, as it is during react manual deployment, a build folder with output files are created
 # here, i am planning to deploy to a azure web app so i will be using an azure web deploy task 
