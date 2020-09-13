@@ -72,7 +72,6 @@ steps:
 - script:
     npm run build
   displayName: 'npm build'  
-  workingDirectory: $(directory)
 
 # at this point, as it is during react manual deployment, a build folder with output files are created
 # here, i am planning to deploy to a azure web app so i will be using an azure web deploy task 
@@ -85,7 +84,7 @@ steps:
 - task: CopyFiles@2
   displayName: 'Copy files'
   inputs:
-    sourceFolder: '$(directory)/build' 
+    sourceFolder: 'build' 
     Contents: '**/*'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
     cleanTargetFolder: true
