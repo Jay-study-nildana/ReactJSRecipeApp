@@ -6,16 +6,102 @@
 trigger:
 - master
 
+# use either Windows or Linux agents to run your builds.
+# here, I am picking up the ubuntu-latest agents.
+# more agents available here 
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/agents/hosted
+# it is also possible to host our own agents
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/agents/agents
+
 pool:
   vmImage: 'ubuntu-latest'
+
+# if the build needs to done on multiple node versions, 
+# by way of using a strategy matrix.
+# right now, i am just using one version so strategy is not required.
+
 
 steps:
 - task: NodeTool@0
   inputs:
-    versionSpec: '10.x'
+    versionSpec: '10.x' # specify a specific version of node js here. depends on the react requirement i guess
   displayName: 'Install Node.js'
+
+# npm install will take care of development dependencies included in the project 
+# package.json and package-lock.json 
+# two options - script or npm task
+# here i am using script
+
+# it is also possible to install non dev dependencies at this stage.
+# for example, command line dev tools that are used and hence required by the project for testing and such
+# ideally, it is better to build a self hosted agent instead of using a ready made agent for scenarios like this
+# if there are a lot of dev tools - which dont change between builds - installing them will take time and affect 
+# deployment times.
+
+# further, if the project is to be built using yarn, then, that can be used instead of npm
+
+# further, this is also where you can include javascript compilers. 
+# fortunately, react native app created projects already come with everything built in
+# so we dont have to worry about it
+# but if the project was bootstrapped manually, this is where the compilers should be introduced.
+
+# test runners and the reporters that can be used to produce XML results can also be included here
+# this work hand in hand with test scripts included in the package.json file 
+# To publish the results, use the Publish Test Results task.
+
+# code coverage tools can also be included here 
+# code coverage tool such as Istanbul, add the Publish Code Coverage Results task to 
+# publish code coverage results along with your test results
+
+# Run tests in headless browsers as part of your pipeline with tools like Protractor or Karma.
+
+# packaging of the web app is done either with webpack or the framework's preferred way of building
+# in this react js project, that would be npm run build.
 
 - script: |
     npm install
     npm run build
   displayName: 'npm install and build'
+
+# at this point, as it is during react manual deployment, a build folder with output files are created
+# here, i am planning to deploy to a azure web app so i will be using an azure web deploy task 
+# already created by microsoft
+# other targets can also be configured here. 
+
+# here, copying the build folder contents and putting into the staging directory 
+# you can copy to pretty much any folder you want to. 
+
+- task: CopyFiles@2
+  inputs:
+    Contents: 'build/**' # Pull the build directory (React)
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+# generating an artifact folder  
+# artifacts are useful if you want to do something else with the output folder
+# may be make a copy of it or download it as a zip and stuff like that. 
+# i believe the deployment will still happen if the copy file and publish artifact step is not there
+
+- task: PublishBuildArtifacts@1
+  inputs: 
+    pathtoPublish: $(Build.ArtifactStagingDirectory) # dist or build files
+    ArtifactName: 'www' # output artifact named www
+
+# deploy to a web app 
+# ultimately, you can choose to just stop here at this point, if the whole point is to simply
+# download the output folder and do other things 
+# but of course, deploying is a main goal in some cases.
+
+# in case of a azure web app, we will use a azure service connection which encapsulates the access to web app 
+# think of it like those FTP credentials that i would use in Filezilla
+# along with the service connection we also need a web app
+
+# I am currently targeting this here - https://reactjsrecipeappwebapp1.azurewebsites.net
+
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'ReactJSRecipeAppConnection' # this is my service connection configured in devops organization
+    appName: 'reactjsrecipeappwebapp1' # this is the web app where i want to deploy to
+    package: 'build/**' # this is the folder where react is dumping all the output files
+    customWebConfig: '-Handler iisnode -NodeStartFile server.js -appType node' # this creates a node web config  in the web app
+
+
