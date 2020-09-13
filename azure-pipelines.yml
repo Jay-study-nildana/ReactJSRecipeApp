@@ -127,7 +127,7 @@ steps:
   displayName: 'Deploy to App Service'
   inputs:
     azureSubscription: 'ReactJSRecipeAppConnection'
-    appName: 'reactjsrecipeappwebapp1'
+    appName: 'reactjsrecipeappwebapp2'
     appType: 'webApp'
     package: '$(System.ArtifactsDirectory)/$(Build.BuildId).zip'
     customWebConfig: '-Handler iisnode -NodeStartFile server.js -appType node' # this creates a node web config  in the web app    
