@@ -28,7 +28,7 @@ steps:
 # Default value: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: '$(Build.ArtifactStagingDirectory)'
+    rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/build/'
     includeRootFolder: false
 
 - task: AzureWebApp@1
