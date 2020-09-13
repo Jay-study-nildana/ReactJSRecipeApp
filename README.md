@@ -1,4 +1,4 @@
-[![Build Status](https://dev.azure.com/tryingitout1/ReactJSRecipeApp/_apis/build/status/Jay-study-nildana.ReactJSRecipeApp?branchName=master)](https://dev.azure.com/tryingitout1/ReactJSRecipeApp/_build/latest?definitionId=2&branchName=master)
+https://dev.azure.com/tryingitout1/ReactJSRecipeApp/_apis/build/status/Jay-study-nildana.ReactJSRecipeApp?branchName=master
 
 # React JS Recipe App
 
