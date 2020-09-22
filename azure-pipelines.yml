@@ -79,5 +79,5 @@ steps:
 - task: AzureWebApp@1
   inputs:
     azureSubscription: 'ReactJSRecipeAppConnection'
-    appName: 'ReactJSRecipeApp4'
+    appName: 'ReactJSRecipeAppSep232020'
     package: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'   
