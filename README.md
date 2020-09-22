@@ -1,5 +1,3 @@
-![build status](https://dev.azure.com/tryingitout1/ReactJSRecipeApp/_apis/build/status/Jay-study-nildana.ReactJSRecipeApp?branchName=master)
-
 # React JS Recipe App
 
 This app does not do anything special as of now. It's a simple react app that shows a recipe.
@@ -10,7 +8,7 @@ Further, it shows a quick and easy YAML configuration for deploying with Azure P
 
 # Deployment Web App
 
-Currently deployed at this [Azure Web Site](https://reactjsrecipeapp4.azurewebsites.net/) via CICD Azure DevOps Pipelines.
+Currently deployed at this [Azure Web Site](https://reactjsrecipeappsep232020.azurewebsites.net/) via CICD Azure DevOps Pipelines.
 
 # Deafault React Read Me
 

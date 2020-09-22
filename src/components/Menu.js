@@ -12,7 +12,7 @@ function Menu({ recipes }) {
         {/* <h1 className="alert">Delicious Recipes because I am Batman</h1> */}
         <h1>
           <Alert color="primary">
-          Delicious Recipes. Because. I am Batman. Also, Robin - 153. 
+          Delicious Recipes. Because. I am Batman.
           </Alert>        
         </h1>
 
