@@ -10,6 +10,20 @@ Further, it shows a quick and easy YAML configuration for deploying with Azure P
 
 Currently deployed at this [Azure Web Site](https://reactjsrecipeappsep232020.azurewebsites.net/) via CICD Azure DevOps Pipelines.
 
+# multiple YAML files
+
+I have kept multiple versions of YAML files in this code. That is on purpose as they have different implementations and comments and so on.
+
+# Azure Pipeline - Switch from AzureWebApp to AzureRMWebAppDeployment
+
+I encountered an issue where, the very first deployment to the azure web app service would always NEVER deploy the site files. 
+
+However, successive deployments, with zero changes to the code - I would use a simple comment line as a file change - to trigger a deployment, and it would work. 
+
+The issue is described here. 
+
+https://stackoverflow.com/questions/64060317/azure-devops-first-time-web-app-deployment-always-gives-error
+
 # Deafault React Read Me
 
 Go Here for the default [Create React App](READMEOfCreateReact.md) readme.
